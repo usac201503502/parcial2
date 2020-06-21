@@ -1,1 +1,2 @@
 Este archivo es para probar git desde el servidor.
+Prueba2
