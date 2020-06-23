@@ -35,7 +35,7 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
         self.sel = str(sel)
 
     def chat(self):
-        logging.info(self.sel)
+        logging.debug(self.sel)
         #nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")
         if self.sel == str(1) :
             nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")    #LGHM seleccionar si usuario o sala
@@ -43,9 +43,9 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
                 user = input("Usuario destino: ") #LGHM escribir el carnet del usuario destino
                 mensaje = input("Escriba mensaje: ")
                 topic = "usuarios/03/"+user #LGHM construccion del topic 
-                logging.info(topic)
+                logging.debug(topic)
                 publishData(str(topic),mensaje) #LGHM publicando en el topic deseado
-                logging.info("mensaje enviado al usuario")
+                logging.debug("mensaje enviado al usuario")
             elif nuevo == str(2): #LGHM Si la eleccion fue una sala
                 sala = input("Sala destino: ")
                 mensaje = input("Escriba mensaje: ")
@@ -58,8 +58,6 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
             pass
         else: logging.info("Accion no soportada")        
 
-#holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-#holis.chat()
 
 
 

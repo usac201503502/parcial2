@@ -1,4 +1,4 @@
-import paho.mqtt.client as mqtt
+#import paho.mqtt.client as mqtt
 import binascii as bichito
 import logging
 import threading
@@ -16,14 +16,14 @@ archivo = open("usuario1.txt", "r")
 com = "comandos"
 com1 ="/03/"+str(archivo.read())
 
-def estatus ():
+def estatus (): #LGHM funcion para hilo de estatus de recepción de datos
     while True :
-        logging.info("Esperando publicaciones...")
-        time.sleep(10)
-def escribir ():        
-        holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        holis.chat()
-        time.sleep(0.1)
+        logging.debug("Esperando publicaciones...")
+        time.sleep(2)
+#def escribir (): #LGHM funcion para hilo pendiente de escritura para envio de datos       
+        #holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        #holis.chat()
+        #time.sleep(0.1)
 qos = 2
 client.subscribe([(str(com+com1), qos), ("comandos/03/201503408", qos), ("comandos/03/201513732", qos),("usuarios/03/201503502", qos)])
 
@@ -34,28 +34,29 @@ t1 = threading.Thread(name = 'Esperando',
                         daemon = True
                         )
 
-t2 = threading.Thread(name = 'Enviando',
-                        target = escribir,
-                        args = (),
-                        daemon = True
-                        )                        
+#t2 = threading.Thread(name = 'Enviando',
+                        #target = escribir,
+                        #args = (),
+                        #daemon = True
+                        #)                        
 
 client.loop_start() #LGHM se inicia el hilo y se mantiene en el fondo esperando publicaciones de suscriptores
 t1.start()   
-t2.start()
+#t2.start()
 
 try:
     while True:
-        pass  
-        #logging.debug("Esperando publicaciones...")
-        #holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        #holis.chat()
-        #time.sleep(10)
+        holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        holis.chat()
+        time.sleep(1)  
 
 except KeyboardInterrupt:
     logging.warning("Desconectando del broker...")
     if t1.isAlive():
         t1._stop()
+    #if t2.isAlive():
+     #   t2._stop()    
+    
 
     
 
