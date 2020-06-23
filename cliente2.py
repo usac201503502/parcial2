@@ -6,6 +6,7 @@ import time
 import os 
 import sys
 from selec import *
+from select2 import *
 
 logging.basicConfig( #LGHM  configuración inicial del logging
     level = logging.INFO,
@@ -20,11 +21,19 @@ def estatus (): #LGHM funcion para hilo de estatus de recepción de datos
     while True :
         logging.debug("Esperando publicaciones...")
         time.sleep(2)
-        
-def escribir (): #LGHM funcion para hilo pendiente de escritura para envio de datos       
-        holis = seleccion2(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        holis.chat()
-        time.sleep(0.1)
+
+
+def escribir (): #LGHM funcion para hilo pendiente de escritura para envio de datos  
+        var = input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: ") 
+        if str(var) == "1":  
+            holis = seleccion(var)
+            holis.chat()
+            time.sleep(0.1)
+        if str(var) == "2":  
+            holis2 = seleccion2(var)
+            holis2.audio()
+            time.sleep(0.1)
+
 
 
 qos = 2
@@ -51,7 +60,10 @@ try:
     while True:
         holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
         holis.chat()
-        time.sleep(1)  
+        time.sleep(1) 
+        holis2 = seleccion2(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        holis2.audio()
+        time.sleep(1)
 
 except KeyboardInterrupt:
     logging.warning("Desconectando del broker...")
@@ -60,7 +72,6 @@ except KeyboardInterrupt:
     if t2.isAlive():
         t2._stop()    
     
-
     
 
 finally:

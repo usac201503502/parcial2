@@ -34,12 +34,12 @@ class seleccion2(object): #LGHM clase para seleccion y envio de datos
     def __init__(self, sel):#LGHM Constructor
         self.sel = str(sel)
 
-    def chat(self):
+    def audio(self):
         logging.debug(self.sel)
         #nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")
         if self.sel == str(2) :
             nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")    #LGHM seleccionar si usuario o sala
-            if nuevo == str(2):
+            if nuevo == str(1):
                 user = input("Usuario destino: ") #LGHM escribir el carnet del usuario destino
                 #mensaje = input("Escriba mensaje: ")
                 audio = open("prueba.wav", "rb") #PJHB Se abre el archivo de audio a enviar en bytes crudos
@@ -62,7 +62,7 @@ class seleccion2(object): #LGHM clase para seleccion y envio de datos
                 publishData(str(topic),enviar_audio) #LGHM publicando en el topic deseado
                 logging.info("mensaje enviado a la sala")                
             else: logging.info("Accion no soportada")        
-        elif self.sel == 1 :
+        elif self.sel == 2 :
             pass
         else: logging.info("Accion no soportada")  
 
