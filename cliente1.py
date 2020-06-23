@@ -1,9 +1,11 @@
 import paho.mqtt.client as mqtt
 import binascii as bichito
 import logging
+import threading
 import time
 import os 
 from brokerData import *
+from selec import *
 
 logging.basicConfig( #LGHM  configuración inicial del logging
     level = logging.INFO,
@@ -14,6 +16,13 @@ archivo = open("usuario1.txt", "r")
 com = "comandos"
 com1 ="/03/"+str(archivo.read())
 
+def estatus (hola):
+    while True :
+        logging.debug("Esperando publicaciones...")
+        holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        holis.chat()
+        time.sleep(10)
+        
 
 
 def on_connect(client, userdata, rc):
@@ -37,31 +46,23 @@ client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
 
 #Nos conectaremos a distintos topics:
 qos = 2
-logging.info(com+com1)
+#logging.info(com+com1)
 
 #Subscripcion simple con tupla (topic,qos)
 #client.subscribe(("sensores/6/hum", qos))
 
 #Subscripcion multiple con lista de tuplas
-client.subscribe([(str(com+com1), qos), ("comandos/03/201503408", qos), ("comandos/03/201513732", qos)])
+client.subscribe([(str(com+com1), qos), ("comandos/03/201503408", qos), ("comandos/03/201513732", qos),("usuarios/03/201503502", qos)])
 
 
 client.loop_start() #LGHM se inicia el hilo y se mantiene en el fondo esperando publicaciones de suscriptores
-
-comando = b'\x03'
-destino = b'03S01'
-tamaño  = b'44023'
- 
-suma = comando + b'$' + destino + b'$' + tamaño
-def publishData(topicRoot, topicName, value, qos = 2, retain = False):
-    topic = topicRoot + topicName
-    client.publish(topic, value, qos, retain)
-    
+     
 
 try:
     while True:
-        logging.info("Esperando publicaciones...")
-        publishData(com, com1,str(suma))
+        logging.debug("Esperando publicaciones...")
+        holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        holis.chat()
         time.sleep(10)
 
 except KeyboardInterrupt:
