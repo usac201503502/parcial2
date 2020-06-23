@@ -58,8 +58,8 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
             pass
         else: logging.info("Accion no soportada")        
 
-holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-holis.chat()
+#holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+#holis.chat()
 
 
 

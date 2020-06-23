@@ -4,7 +4,7 @@ import logging
 import threading
 import time
 import os 
-from brokerData import *
+import sys
 from selec import *
 
 logging.basicConfig( #LGHM  configuración inicial del logging
@@ -16,59 +16,51 @@ archivo = open("usuario1.txt", "r")
 com = "comandos"
 com1 ="/03/"+str(archivo.read())
 
-def estatus (hola):
+def estatus ():
     while True :
-        logging.debug("Esperando publicaciones...")
+        logging.info("Esperando publicaciones...")
+        time.sleep(10)
+def escribir ():        
         holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
         holis.chat()
-        time.sleep(10)
-        
-
-
-def on_connect(client, userdata, rc):
-    logging.info("Conectado al broker")
-
-def on_publish(client, userdata, mid): 
-    publishText = "Publicacion satisfactoria"
-    logging.debug(publishText)
-
-def on_message(client, userdata, msg):
-    #Se muestra en pantalla informacion que ha llegado
-    logging.info("Ha llegado el mensaje al topic: " + str(msg.topic))
-    logging.info("El contenido del mensaje es: " + str(msg.payload))        
-
-client = mqtt.Client(clean_session=True) #Nueva instancia de cliente
-client.on_connect = on_connect #Se configura la funcion "Handler" cuando suceda la conexion
-client.on_publish = on_publish #Se configura la funcion "Handler" que se activa al publicar algo
-client.on_message = on_message #Se configura la funcion "Handler" que se activa al llegar un mensaje a un topic subscrito
-client.username_pw_set(MQTT_USER, MQTT_PASS) #Credenciales requeridas por el broker
-client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
-
-#Nos conectaremos a distintos topics:
+        time.sleep(0.1)
 qos = 2
-#logging.info(com+com1)
-
-#Subscripcion simple con tupla (topic,qos)
-#client.subscribe(("sensores/6/hum", qos))
-
-#Subscripcion multiple con lista de tuplas
 client.subscribe([(str(com+com1), qos), ("comandos/03/201503408", qos), ("comandos/03/201513732", qos),("usuarios/03/201503502", qos)])
 
 
+t1 = threading.Thread(name = 'Esperando',
+                        target = estatus,
+                        args = (),
+                        daemon = True
+                        )
+
+t2 = threading.Thread(name = 'Enviando',
+                        target = escribir,
+                        args = (),
+                        daemon = True
+                        )                        
+
 client.loop_start() #LGHM se inicia el hilo y se mantiene en el fondo esperando publicaciones de suscriptores
-     
+t1.start()   
+t2.start()
 
 try:
     while True:
-        logging.debug("Esperando publicaciones...")
-        holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        holis.chat()
-        time.sleep(10)
+        pass  
+        #logging.debug("Esperando publicaciones...")
+        #holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
+        #holis.chat()
+        #time.sleep(10)
 
 except KeyboardInterrupt:
     logging.warning("Desconectando del broker...")
+    if t1.isAlive():
+        t1._stop()
+
+    
 
 finally:
     client.loop_stop() #Se mata el hilo que verifica los topics en el fondo
     client.disconnect() #Se desconecta del broker
     logging.info("Desconectado del broker. Saliendo...")
+    sys.exit()
