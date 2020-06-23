@@ -53,9 +53,10 @@ destino = b'03S01'
 tamaño  = b'44023'
  
 suma = comando + b'$' + destino + b'$' + tamaño
-def publishData(topicRoot, topicName, b'value', qos = 2, retain = False):
+def publishData(topicRoot, topicName, value, qos = 2, retain = False):
     topic = topicRoot + topicName
     client.publish(topic, value, qos, retain)
+    
 
 try:
     while True:
