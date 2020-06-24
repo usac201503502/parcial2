@@ -34,7 +34,7 @@ def grab_audio(tiempo, user):
 def on_message(client, userdata, msg):
     #Se muestra en pantalla informacion que ha llegado
     papi= str(msg.topic)
-    if papi[0]=="a":  #LGHM si es audio proceder a reproducirlo
+    if papi[0]=="a":  #GPCG si es audio proceder a reproducirlo
         logging.info("Ha llegado el audio al topic: " + str(msg.topic))
         print (papi.split('/')[2]+': Reproduciendo audio...')
         logging.info("Reproduciendo: ") 
@@ -51,7 +51,7 @@ def on_message(client, userdata, msg):
         t3.start()
     else: #LGHM si es texto tipo usuario o sala procede normalmente
         logging.info("Ha llegado el mensaje al topic: " + str(msg.topic))
-        logging.info("El contenido del mensaje es: " + str(msg.payload))
+        logging.info("El contenido del mensaje es: " + str(msg.payload))        
         wenas = str(msg.topic) 
         wenas2 = msg.payload
         print(wenas.split('/')[2]+': '+str(wenas2.decode('utf-8')))  
@@ -66,7 +66,7 @@ client.username_pw_set(MQTT_USER, MQTT_PASS) #Credenciales requeridas por el bro
 client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
 
 
-def publishData(topic, value, qos = 0, retain = False): #LGHM Función para publicar datos tipo chat
+def publishData(topic, value, qos = 0, retain = False): #GPCG Función para publicar datos tipo chat
     client.publish(topic, value, qos, retain)
 
 class seleccion(object): #GPCG clase para seleccion y envio de datos

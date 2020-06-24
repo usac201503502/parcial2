@@ -48,9 +48,9 @@ def lineaporlinea2(archivodelectura2): #GPCG ciclo for para leer el archivo de t
     
     return chatusuarios
 
-lineaporlinea('parcial2/usuario1.txt')
-lineaporlinea2('parcial2/salas_usuario1.txt')
-logging.info(lineaporlinea2('parcial2/salas_usuario1.txt'))
+lineaporlinea('usuario1.txt')
+lineaporlinea2('salas_usuario1.txt')
+logging.info(lineaporlinea2('salas_usuario1.txt'))
 client.subscribe(chatusuarios)
 
 #client.subscribe([("usuarios/03/201513732", qos),("audio/03/201503502",qos),("audio/03/S01",qos), ("audio/03/201513732", qos),("usuarios/03/201503502", qos)])
