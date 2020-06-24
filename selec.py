@@ -84,6 +84,7 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
             elif nuevo == str(2): #LGHM Si la eleccion fue una sala
                 sala = input("Sala destino: ")
                 #mensaje = input("Escriba mensaje: ")
+                os.system('arecord -d 5 -f U8 -r 8000 prueba.wav') #PJHB Empieza la grabacion del audio
                 audio = open("prueba.wav", "rb") 
                 leer_audio = audio.read() 
                 audio.close()
