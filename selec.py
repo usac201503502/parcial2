@@ -18,6 +18,11 @@ def on_message(client, userdata, msg):
     #Se muestra en pantalla informacion que ha llegado
     logging.info("Ha llegado el mensaje al topic: " + str(msg.topic))
     logging.info("El contenido del mensaje es: " + str(msg.payload)) 
+    papi= str(msg.topic)
+    if papi[0]=="a":  #LGHM seleccionando audio
+        logging.info("nel")
+    else:
+        pass    
 
 client = mqtt.Client(clean_session=True) #Nueva instancia de cliente
 client.on_connect = on_connect #Se configura la funcion "Handler" cuando suceda la conexion
@@ -49,7 +54,7 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
             elif nuevo == str(2): #LGHM Si la eleccion fue una sala
                 sala = input("Sala destino: ")
                 mensaje = input("Escriba mensaje: ")
-                topic = "salas/03/"+sala #LGHM construccion del topic 
+                topic = "audio/03/"+sala #LGHM construccion del topic 
                 logging.info(topic)
                 publishData(str(topic),mensaje) #LGHM publicando en el topic deseado
                 logging.info("mensaje enviado a la sala")                
