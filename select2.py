@@ -19,12 +19,14 @@ def on_publish(client, userdata, mid):
 
 def on_message(client, userdata, msg):
     #Se muestra en pantalla informacion que ha llegado
-    logging.info("Ha llegado el mensaje al topic: " + str(msg.topic))
-    logging.info("El contenido del mensaje es: " + str(msg.payload)) 
+
+    logging.info("Ha llegado el mensaje al topic: " + str(msg.topic)) 
+    logging.info("El contenido del mensaje es: " + str(msg.payload))  
     data = msg.payload
     file = open("Recibido.wav", "wb") #PJHB Crea archivo de audio
-    recibir_audio = file.write(data)
-    file.close()
+    recibir_audio = file.write(data) #PJHB 
+    file.close() #PJHB
+    os.system('aplay Recibido.wav') #PJHB
 
 
 client = mqtt.Client(clean_session=True) #Nueva instancia de cliente
@@ -49,7 +51,7 @@ class seleccion2(object): #LGHM clase para seleccion y envio de datos
             nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ") #LGHM seleccionar si usuario o sala
             if nuevo == str(1):
                 user = input("Usuario destino: ") #LGHM escribir el carnet del usuario destino
-                #os.system('arecord -d 5 -f U8 -r 8000 prueba.wav') #PJHB Empieza la grabacion del audio
+                os.system('arecord -d 5 -f U8 -r 8000 prueba.wav') #PJHB Empieza la grabacion del audio
                 audio = open("prueba.wav", "rb") #PJHB Se abre el archivo de audio a enviar en bytes crudos
                 leer_audio = audio.read() #PJHB Lectura de la información del archivo de audio
                 audio.close()
