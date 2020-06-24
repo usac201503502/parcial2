@@ -13,7 +13,7 @@ logging.basicConfig( #LGHM  configuración inicial del logging
     format = '[%(levelname)s] (%(threadName)-10s) %(message)s'
     )
 
-#archivo = open('usuario1.txt', "r")
+archivo = open("usuario1 (copia).txt", "r")
 #com = "comandos"
 #com1 ="/03/"+str(archivo.read())
 
