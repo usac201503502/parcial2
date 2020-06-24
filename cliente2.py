@@ -60,10 +60,9 @@ try:
     while True:
         holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
         holis.chat()
+        holis.audio()
         time.sleep(1) 
-        holis2 = seleccion2(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        holis2.audio()
-        time.sleep(1)
+        
 
 except KeyboardInterrupt:
     logging.warning("Desconectando del broker...")
