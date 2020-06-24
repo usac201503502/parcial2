@@ -12,9 +12,9 @@ logging.basicConfig( #LGHM  configuración inicial del logging
     format = '[%(levelname)s] (%(threadName)-10s) %(message)s'
     )
 
-archivo = open("usuario1.txt", "r")
-com = "comandos"
-com1 ="/03/"+str(archivo.read())
+#archivo = open("usuario1.txt", "r")
+#com = "comandos"
+#com1 ="/03/"+str(archivo.read())
 
 def estatus (): #LGHM funcion para hilo de estatus de recepción de datos
     while True :
