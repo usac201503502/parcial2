@@ -26,6 +26,7 @@ def on_message(client, userdata, msg):
     recibir_audio = file.write(data)
     file.close()
 
+
 client = mqtt.Client(clean_session=True) #Nueva instancia de cliente
 client.on_connect = on_connect #Se configura la funcion "Handler" cuando suceda la conexion
 client.on_publish = on_publish #Se configura la funcion "Handler" que se activa al publicar algo
