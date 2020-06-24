@@ -5,7 +5,7 @@ import logging
 import os
 
 
-logging.basicConfig( #LGHM configuracion del loggin para pruebas
+logging.basicConfig( #GPCG configuracion del loggin para pruebas
     level = logging.WARNING, 
     format = '[%(levelname)s] (%(processName)-10s) %(message)s'
     )
@@ -69,8 +69,8 @@ client.connect(host=MQTT_HOST, port = MQTT_PORT) #Conectar al servidor remoto
 def publishData(topic, value, qos = 0, retain = False): #LGHM Función para publicar datos tipo chat
     client.publish(topic, value, qos, retain)
 
-class seleccion(object): #LGHM clase para seleccion y envio de datos
-    def __init__(self, sel):#LGHM Constructor
+class seleccion(object): #GPCG clase para seleccion y envio de datos
+    def __init__(self, sel):#GPCG Constructor
         self.sel = str(sel)
 
     def chat(self):
