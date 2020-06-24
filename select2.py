@@ -18,8 +18,7 @@ def on_publish(client, userdata, mid):
     logging.debug(publishText)
 
 def on_message(client, userdata, msg):
-    #Se muestra en pantalla informacion que ha llegado
-
+    #Se muestra en pantalla informacion que ha llegado 
     logging.info("Ha llegado el mensaje al topic: " + str(msg.topic)) 
     logging.info("El contenido del mensaje es: " + str(msg.payload))  
     data = msg.payload
