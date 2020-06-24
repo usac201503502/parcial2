@@ -20,9 +20,9 @@ def on_publish(client, userdata, mid):
 def on_message(client, userdata, msg):
     #Se muestra en pantalla informacion que ha llegado
     logging.info("Ha llegado el mensaje al topic: " + str(msg.topic))
-    #logging.info("El contenido del mensaje es: " + str(msg.payload)) 
-    data = msg.topic
-    file = open("Recibido.wav", "rb") #PJHB Crea archivo de audio
+    logging.info("El contenido del mensaje es: " + str(msg.payload)) 
+    data = msg.payload
+    file = open("Recibido.wav", "wb") #PJHB Crea archivo de audio
     recibir_audio = file.write(data)
     file.close()
 
@@ -45,7 +45,7 @@ class seleccion2(object): #LGHM clase para seleccion y envio de datos
         logging.debug(self.sel)
         #nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")
         if self.sel == str(2) :
-            nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ")    #LGHM seleccionar si usuario o sala
+            nuevo = input("1) Usuario\n2) Sala\nSeleccionar: ") #LGHM seleccionar si usuario o sala
             if nuevo == str(1):
                 user = input("Usuario destino: ") #LGHM escribir el carnet del usuario destino
                 #os.system('arecord -d 5 -f U8 -r 8000 prueba.wav') #PJHB Empieza la grabacion del audio
