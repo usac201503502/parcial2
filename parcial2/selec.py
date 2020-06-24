@@ -18,18 +18,18 @@ def on_publish(client, userdata, mid):
     logging.debug(publishText)
 
 def rep_audio(): #LGHM Funcion para hilo de reproducion de audio
-    os.system('aplay Recibido.wav') #PJHB
+    os.system('aplay Recibido.wav') #PJHB reproduce el audio luego de recibirlo
 
 def grab_audio(tiempo, user):
     os.system('arecord -d '+str(tiempo)+' -f U8 -r 8000 prueba.wav')
     audio = open("prueba.wav", "rb") #PJHB Se abre el archivo de audio a enviar en bytes crudos
     leer_audio = audio.read() #PJHB Lectura de la información del archivo de audio
-    audio.close()
+    audio.close() # PJHB Se cierra archivo de audio
     enviar_audio = bytearray(leer_audio) #PJHB Se crea un arreglo de bytes en el cual se colocara cada byte del audio
     topic = "audio/03/"+user #LGHM construccion del topic 
     logging.debug(topic)
     publishData(str(topic),enviar_audio) #LGHM publicando en el topic deseado
-    logging.debug("audio enviado al usuario")
+    logging.debug("audio enviado al usuario") #PJHB Se indica que ya se envió el audio
 
 def on_message(client, userdata, msg):
     #Se muestra en pantalla informacion que ha llegado
@@ -38,11 +38,11 @@ def on_message(client, userdata, msg):
         logging.info("Ha llegado el audio al topic: " + str(msg.topic))
         print (papi.split('/')[2]+': Reproduciendo audio...')
         logging.info("Reproduciendo: ") 
-        data = msg.payload
+        data = msg.payload #PJHB Se asigna a la variable data la informacion entrante
         
         file = open("Recibido.wav", "wb") #PJHB Crea archivo de audio
-        recibir_audio = file.write(data) #PJHB 
-        file.close() #PJHB
+        recibir_audio = file.write(data) #PJHB se sobre escribe el archivo de audio
+        file.close() #PJHB se cierra el archivo de audio
         t3 = threading.Thread(name = 'Escuchando', #LGHM hilo para escuchar el audio y seguir programa principal
                         target = rep_audio,
                         args = (),
@@ -119,7 +119,6 @@ class seleccion(object): #GPCG clase para seleccion y envio de datos
                 t6.start()              
             else: logging.info("Accion no soportada") 
         else: logging.info("Accion no soportada")        
-
 
 
 
