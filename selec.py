@@ -76,7 +76,7 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
                 leer_audio = audio.read() #PJHB Lectura de la información del archivo de audio
                 audio.close()
                 enviar_audio = bytearray(leer_audio) #PJHB Se crea un arreglo de bytes en el cual se colocara cada byte del audio
-                topic = "usuarios/03/"+user #LGHM construccion del topic 
+                topic = "audio/03/"+user #LGHM construccion del topic 
                 logging.debug(topic)
                 publishData(str(topic),enviar_audio) #LGHM publicando en el topic deseado
                 logging.debug("audio enviado al usuario")
@@ -88,7 +88,7 @@ class seleccion(object): #LGHM clase para seleccion y envio de datos
                 leer_audio = audio.read() 
                 audio.close()
                 enviar_audio = bytearray(leer_audio) 
-                topic = "salas/03/"+sala #LGHM construccion del topic 
+                topic = "audio/03/"+sala #LGHM construccion del topic 
                 logging.info(topic)
                 publishData(str(topic),enviar_audio) #LGHM publicando en el topic deseado
                 logging.info("audio enviado a la sala")                

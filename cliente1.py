@@ -25,7 +25,7 @@ def estatus (): #LGHM funcion para hilo de estatus de recepción de datos
         #holis.chat()
         #time.sleep(0.1)
 qos = 2
-client.subscribe([("usuarios/03/201503408", qos), ("audio/03/201513732", qos),("usuarios/03/201503502", qos)])
+client.subscribe([("usuarios/03/201503408", qos),("audio/03/03S01",qos), ("audio/03/201513732", qos),("usuarios/03/201503502", qos)])
 
 
 t1 = threading.Thread(name = 'Esperando',
