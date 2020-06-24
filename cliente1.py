@@ -20,29 +20,18 @@ def estatus (): #LGHM funcion para hilo de estatus de recepción de datos
     while True :
         logging.debug("Esperando publicaciones...")
         time.sleep(2)
-#def escribir (): #LGHM funcion para hilo pendiente de escritura para envio de datos       
-        #holis = seleccion(input("1) Enviar Texto\n2) Enviar Audio\nSeleccionar: "))
-        #holis.chat()
-        #time.sleep(0.1)
-qos = 2
-client.subscribe([("usuarios/03/201503408", qos),("audio/03/03S01",qos), ("audio/03/201513732", qos),("usuarios/03/201503502", qos)])
 
+qos = 2
+client.subscribe([("usuarios/03/201513732", qos),("audio/03/201503502",qos),("audio/03/S01",qos), ("audio/03/201513732", qos),("usuarios/03/201503502", qos)])
 
 t1 = threading.Thread(name = 'Esperando',
                         target = estatus,
                         args = (),
                         daemon = True
                         )
-
-#t2 = threading.Thread(name = 'Enviando',
-                        #target = escribir,
-                        #args = (),
-                        #daemon = True
-                        #)                        
-
+                       
 client.loop_start() #LGHM se inicia el hilo y se mantiene en el fondo esperando publicaciones de suscriptores
 t1.start()   
-#t2.start()
 
 try:
     while True:
@@ -54,11 +43,6 @@ except KeyboardInterrupt:
     logging.warning("Desconectando del broker...")
     if t1.isAlive():
         t1._stop()
-    #if t2.isAlive():
-     #   t2._stop()    
-    
-
-    
 
 finally:
     client.loop_stop() #Se mata el hilo que verifica los topics en el fondo
